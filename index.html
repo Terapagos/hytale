@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Hytale</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hytale Name Checker</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #1e1e2f;
+        color: #eaeaf0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        resize: vertical;
+        font-size: 14px;
+        outline: none;
+    }
+
+    button {
+        margin: 5px 2px 5px 0;
+        padding: 10px 14px;
+        border-radius: 6px;
+        border: none;
+        background: #6a7cff;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #5a66e0;
+    }
+
+    ul {
+        list-style: none;
+        margin-top: 15px;
+        padding-left: 0;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    li {
+        padding: 6px 10px;
+        margin-bottom: 4px;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.05);
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Hytale Name Checker</h2>
+
+    <textarea id="nameInput" placeholder="example, example2&#10;example3"></textarea>
+    <br>
+    <button onclick="scanFromInput()">Start Scan</button>
+
+    <!-- Filter Buttons -->
+    <div>
+        <button onclick="setFilter('All')">All</button>
+        <button onclick="setFilter('Available')">Available</button>
+        <button onclick="setFilter('Taken')">Taken</button>
+    </div>
+
+    <!-- Counters -->
+    <div>
+        <span>Available: <span id="availableCount">0</span></span> |
+        <span>Taken: <span id="takenCount">0</span></span> |
+        <span>Unknown: <span id="unknownCount">0</span></span>
+    </div>
+
+    <ul id="results"></ul>
+</div>
+
+<script>
+let currentFilter = "All";
+
+// ===============================
+// Filter Functions
+// ===============================
+function setFilter(filter) {
+    currentFilter = filter;
+    applyFilter();
+}
+
+function applyFilter() {
+    const items = document.querySelectorAll("#results li");
+    items.forEach(li => {
+        const status = li.dataset.status;
+        if (currentFilter === "All" || status === currentFilter) {
+            li.style.display = "";
+        } else {
+            li.style.display = "none";
+        }
+    });
+}
+
+// ===============================
+// Counters
+// ===============================
+function updateCounters() {
+    const items = document.querySelectorAll("#results li");
+    let available = 0, taken = 0, unknown = 0;
+
+    items.forEach(li => {
+        const status = li.dataset.status;
+        if (status === "Available") available++;
+        else if (status === "Taken") taken++;
+        else if (status === "Unknown") unknown++;
+    });
+
+    document.getElementById("availableCount").textContent = available;
+    document.getElementById("takenCount").textContent = taken;
+    document.getElementById("unknownCount").textContent = unknown;
+}
+
+// ===============================
+// Check single name
+// ===============================
+async function checkName(name) {
+    try {
+        const res = await fetch(
+            "https://api.hytl.tools/check/" + encodeURIComponent(name)
+        );
+        const data = await res.json();
+
+        if (data.available === true) return "Available";
+        if (data.available === false) return "Taken";
+        return "Unknown";
+    } catch {
+        return "Unknown";
+    }
+}
+
+// ===============================
+// Main scanner with retry for Unknown
+// ===============================
+async function scanFromInput() {
+    const raw = document.getElementById("nameInput").value;
+    const list = document.getElementById("results");
+    list.innerHTML = "";
+
+    const WORDS = raw
+        .split(/[\n,]+/)
+        .map(w => w.trim())
+        .filter(Boolean);
+
+    for (const word of WORDS) {
+        const li = document.createElement("li");
+        li.textContent = `${word} — checking...`;
+        list.appendChild(li);
+
+        let result = await checkName(word);
+
+        // Retry until result is not Unknown
+        while (result === "Unknown") {
+            li.textContent = `${word} — retrying...`;
+            await new Promise(r => setTimeout(r, 1000)); // wait 1 sec before retry
+            result = await checkName(word);
+        }
+
+        li.textContent = `${word} — ${result}`;
+        li.dataset.status = result;
+        li.style.color =
+            result === "Available" ? "green" :
+            result === "Taken" ? "red" : "orange";
+
+        updateCounters();  // update counters live
+        applyFilter();     // apply current filter
+
+        await new Promise(r => setTimeout(r, 300)); // polite delay
+    }
+}
+</script>
+
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
