@@ -1,16 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Hytale</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Hytale Name Checker</title>
@@ -122,11 +111,7 @@ function applyFilter() {
     const items = document.querySelectorAll("#results li");
     items.forEach(li => {
         const status = li.dataset.status;
-        if (currentFilter === "All" || status === currentFilter) {
-            li.style.display = "";
-        } else {
-            li.style.display = "none";
-        }
+        li.style.display = (currentFilter === "All" || status === currentFilter) ? "" : "none";
     });
 }
 
@@ -155,7 +140,7 @@ function updateCounters() {
 async function checkName(name) {
     try {
         const res = await fetch(
-            "https://api.hytl.tools/check/" + encodeURIComponent(name)
+            "https://hytale-backend.fly.dev/check/" + encodeURIComponent(name)
         );
         const data = await res.json();
 
@@ -175,10 +160,7 @@ async function scanFromInput() {
     const list = document.getElementById("results");
     list.innerHTML = "";
 
-    const WORDS = raw
-        .split(/[\n,]+/)
-        .map(w => w.trim())
-        .filter(Boolean);
+    const WORDS = raw.split(/[\n,]+/).map(w => w.trim()).filter(Boolean);
 
     for (const word of WORDS) {
         const li = document.createElement("li");
@@ -187,10 +169,9 @@ async function scanFromInput() {
 
         let result = await checkName(word);
 
-        // Retry until result is not Unknown
         while (result === "Unknown") {
             li.textContent = `${word} — retrying...`;
-            await new Promise(r => setTimeout(r, 1000)); // wait 1 sec before retry
+            await new Promise(r => setTimeout(r, 1000));
             result = await checkName(word);
         }
 
@@ -200,18 +181,14 @@ async function scanFromInput() {
             result === "Available" ? "green" :
             result === "Taken" ? "red" : "orange";
 
-        updateCounters();  // update counters live
-        applyFilter();     // apply current filter
+        updateCounters();
+        applyFilter();
 
-        await new Promise(r => setTimeout(r, 300)); // polite delay
+        await new Promise(r => setTimeout(r, 300));
     }
 }
 </script>
 
 </body>
 </html>
-    <script  src="./script.js"></script>
 
-  </body>
-  
-</html>
