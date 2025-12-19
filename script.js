@@ -45,7 +45,7 @@ function updateCounters() {
 async function checkName(name) {
     try {
         const res = await fetch(
-            "https://hytale-backend.fly.dev/" + encodeURIComponent(name)
+            "https://hytale-backend.fly.dev/check/" + encodeURIComponent(name)
         );
         const data = await res.json();
 
