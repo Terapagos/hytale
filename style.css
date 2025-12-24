@@ -1,0 +1,113 @@
+/* General Page */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #12121b);
+    color: #eaeaf0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(30,30,47,0.9);
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(106,124,255,0.4);
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6a7cff;
+    text-shadow: 0 0 6px #6a7cff;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    resize: vertical;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+textarea:focus {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 10px #6a7cff;
+}
+
+/* Buttons */
+button {
+    margin: 5px 4px 5px 0;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #6a7cff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 6px rgba(106,124,255,0.6);
+}
+
+button:hover {
+    background: #5a66e0;
+    box-shadow: 0 0 12px rgba(106,124,255,0.9);
+}
+
+/* Counters */
+.container > div span {
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Results List */
+ul {
+    list-style: none;
+    margin-top: 20px;
+    padding-left: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+li {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    transition: 0.2s;
+    font-weight: 500;
+}
+
+li:hover {
+    background: rgba(106,124,255,0.1);
+    box-shadow: 0 0 8px rgba(106,124,255,0.5);
+}
+
+/* Status Colors */
+li[data-status="Available"] {
+    color: #00ff99;
+}
+
+li[data-status="Taken"] {
+    color: #ff4d4d;
+}
+
+li[data-status="Unknown"] {
+    color: #ffa500;
+}
