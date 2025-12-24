@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Hytale</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hytale Name Checker</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #1e1e2f;
+        color: #eaeaf0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        resize: vertical;
+        font-size: 14px;
+        outline: none;
+    }
+
+    button {
+        margin: 5px 4px 5px 0;
+        padding: 10px 14px;
+        border-radius: 6px;
+        border: none;
+        background: #6a7cff;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #5a66e0;
+    }
+
+    ul {
+        list-style: none;
+        margin-top: 15px;
+        padding-left: 0;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    li {
+        padding: 6px 10px;
+        margin-bottom: 4px;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.05);
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Hytale Name Checker</h2>
+
+    <textarea id="nameInput" placeholder="name, name2&#10;name3"></textarea>
+
+    <br>
+    <button onclick="scanFromInput()">Start Scan</button>
+
+    <!-- Filters -->
+    <div>
+        <button onclick="setFilter('All')">All</button>
+        <button onclick="setFilter('Available')">Available</button>
+        <button onclick="setFilter('Taken')">Taken</button>
+        <button onclick="setFilter('Reserved')">Reserved</button>
+        <button onclick="setFilter('ReservedByHytale')">Reserved by Hytale</button>
+    </div>
+
+    <!-- Counters -->
+    <div>
+        Available: <span id="availableCount">0</span> |
+        Taken: <span id="takenCount">0</span> |
+        Reserved: <span id="reservedCount">0</span> |
+        Hytale Reserved: <span id="hytaleCount">0</span> |
+    </div>
+
+    <ul id="results"></ul>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
