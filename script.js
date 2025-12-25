@@ -21,7 +21,7 @@ function applyFilter() {
 // Counters
 // ===============================
 function updateCounters() {
-    let available = 0, taken = 0, reserved = 0, hytale = 0, unknown = 0;
+    let available = 0, taken = 0, reserved = 0, hytale = 0;
 
     document.querySelectorAll("#results li").forEach(li => {
         const s = li.dataset.status;
@@ -29,14 +29,12 @@ function updateCounters() {
         else if (s === "Taken") taken++;
         else if (s === "Reserved") reserved++;
         else if (s === "ReservedByHytale") hytale++;
-        else unknown++;
     });
 
     availableCount.textContent = available;
     takenCount.textContent = taken;
     reservedCount.textContent = reserved;
     hytaleCount.textContent = hytale;
-    unknownCount.textContent = unknown;
 }
 
 // ===============================
@@ -49,7 +47,6 @@ async function checkName(name) {
         );
         const data = await res.json();
 
-        // New API format
         if (typeof data.status === "string") {
             const s = data.status.toLowerCase();
             if (s.includes("available")) return "Available";
@@ -59,7 +56,6 @@ async function checkName(name) {
             if (s.includes("taken")) return "Taken";
         }
 
-        // Legacy fallback
         if (data.available === true) return "Available";
         if (data.available === false) return "Taken";
         if (data.reserved === true) return "Reserved";
@@ -90,7 +86,7 @@ async function scanFromInput() {
 
         let result = await checkName(name);
 
-        // Retry until it's not Unknown
+        // Retry until a valid result is returned
         while (result === "Unknown") {
             li.textContent = `${name} — retrying...`;
             await new Promise(r => setTimeout(r, 1000));
@@ -100,7 +96,6 @@ async function scanFromInput() {
         li.textContent = `${name} — ${result}`;
         li.dataset.status = result;
 
-        // ===== Fixed color mapping =====
         li.style.color =
             result === "Available" ? "lime" :
             result === "Taken" ? "red" :
