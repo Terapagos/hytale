@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Hytale</title>
-    <link rel="stylesheet" href="./style.css">
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Hytale Name Checker</title>
-
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -81,17 +69,15 @@
     }
 </style>
 </head>
-
 <body>
+
 <div class="container">
     <h2>Hytale Name Checker</h2>
 
     <textarea id="nameInput" placeholder="name, name2&#10;name3"></textarea>
-
     <br>
     <button onclick="scanFromInput()">Start Scan</button>
 
-    <!-- Filters -->
     <div>
         <button onclick="setFilter('All')">All</button>
         <button onclick="setFilter('Available')">Available</button>
@@ -100,12 +86,11 @@
         <button onclick="setFilter('ReservedByHytale')">Reserved by Hytale</button>
     </div>
 
-    <!-- Counters -->
     <div>
         Available: <span id="availableCount">0</span> |
         Taken: <span id="takenCount">0</span> |
         Reserved: <span id="reservedCount">0</span> |
-        Hytale Reserved: <span id="hytaleCount">0</span> |
+        Hytale Reserved: <span id="hytaleCount">0</span>
     </div>
 
     <ul id="results"></ul>
@@ -114,8 +99,4 @@
 <script src="script.js"></script>
 </body>
 </html>
-    <script  src="./script.js"></script>
 
-  </body>
-  
-</html>
