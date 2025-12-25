@@ -1,6 +1,6 @@
-/* General Page */
+/* Body with background image + gradient overlay, box centered */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: 
         linear-gradient(135deg, rgba(30,30,47,0.8), rgba(18,18,27,0.8)),
         url('https://raw.githubusercontent.com/Terapagos/hytale/main/content-upper-new-3840.jpg') no-repeat center center;
@@ -8,18 +8,101 @@ body {
     background-attachment: fixed;
     color: #eaeaf0;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: center; /* horizontal centering */
+    align-items: center;     /* vertical centering */
     min-height: 100vh;
+    margin: 0;
     padding: 20px;
 }
 
-/* Container */
+/* Container with semi-transparent background */
 .container {
     width: 100%;
     max-width: 600px;
-    background: rgba(30,30,47,0.85); /* semi-transparent so background shows */
+    background: rgba(30,30,47,0.85);
     padding: 20px 25px;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(106,124,255,0.4);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #6a7cff;
+    text-shadow: 0 0 6px #6a7cff;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    resize: vertical;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+textarea:focus {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 10px #6a7cff;
+}
+
+button {
+    margin: 5px 4px 5px 0;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: none;
+    background: #6a7cff;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 6px rgba(106,124,255,0.6);
+}
+
+button:hover {
+    background: #5a66e0;
+    box-shadow: 0 0 12px rgba(106,124,255,0.9);
+}
+
+ul {
+    list-style: none;
+    margin-top: 15px;
+    padding-left: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+li {
+    padding: 6px 10px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+li:hover {
+    background: rgba(106,124,255,0.1);
+    box-shadow: 0 0 8px rgba(106,124,255,0.5);
+}
+
+li[data-status="Available"] { color: #00ff99; }
+li[data-status="Taken"] { color: #ff4d4d; }
+li[data-status="Reserved"] { color: #ffa500; }
+li[data-status="ReservedByHytale"] { color: #ff66ff; }
+
+/* Optional scrollbar styling */
+ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    background: rgba(106,124,255,0.5);
+    border-radius: 4px;
 }
