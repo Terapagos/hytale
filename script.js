@@ -76,21 +76,29 @@ async function scanFromInput() {
 
     const names = raw
         .split(/[\n,]+/)
-        .map(n => n.trim())
+        .map(n => n.trim().replace(/\s+/g, "")) // remove all spaces
         .filter(Boolean);
+
+    const validRegex = /^[a-z0-9_]{3,16}$/i; // a-z, 0-9, _ ; length 3-16
 
     for (const name of names) {
         const li = document.createElement("li");
         li.textContent = `${name} — checking...`;
         results.appendChild(li);
 
-        let result = await checkName(name);
+        let result;
 
-        // Retry until a valid result is returned
-        while (result === "Unknown") {
-            li.textContent = `${name} — retrying...`;
-            await new Promise(r => setTimeout(r, 1000));
+        if (!validRegex.test(name)) {
+            result = "Taken"; // invalid names are considered Taken
+        } else {
             result = await checkName(name);
+
+            // Retry until result is not Unknown
+            while (result === "Unknown") {
+                li.textContent = `${name} — retrying...`;
+                await new Promise(r => setTimeout(r, 1000));
+                result = await checkName(name);
+            }
         }
 
         li.textContent = `${name} — ${result}`;
