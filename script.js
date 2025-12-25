@@ -90,6 +90,7 @@ async function scanFromInput() {
 
         let result = await checkName(name);
 
+        // Retry until it's not Unknown
         while (result === "Unknown") {
             li.textContent = `${name} — retrying...`;
             await new Promise(r => setTimeout(r, 1000));
@@ -99,6 +100,7 @@ async function scanFromInput() {
         li.textContent = `${name} — ${result}`;
         li.dataset.status = result;
 
+        // ===== Fixed color mapping =====
         li.style.color =
             result === "Available" ? "lime" :
             result === "Taken" ? "red" :
