@@ -4,9 +4,14 @@
 <meta charset="UTF-8">
 <title>Hytale Name Checker</title>
 <style>
+    /* Body with background image + gradient overlay */
     body {
-        font-family: Arial, sans-serif;
-        background: #1e1e2f;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: 
+            linear-gradient(135deg, rgba(30,30,47,0.8), rgba(18,18,27,0.8)),
+            url('https://raw.githubusercontent.com/Terapagos/hytale/main/content-upper-new-3840.jpg') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
         color: #eaeaf0;
         display: flex;
         justify-content: center;
@@ -15,14 +20,21 @@
         padding: 20px;
     }
 
+    /* Container with semi-transparent background */
     .container {
         width: 100%;
         max-width: 600px;
+        background: rgba(30,30,47,0.85);
+        padding: 20px 25px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(106,124,255,0.4);
     }
 
     h2 {
         text-align: center;
         margin-bottom: 10px;
+        color: #6a7cff;
+        text-shadow: 0 0 6px #6a7cff;
     }
 
     textarea {
@@ -31,11 +43,17 @@
         padding: 10px;
         border-radius: 8px;
         border: none;
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.05);
         color: #fff;
         resize: vertical;
         font-size: 14px;
         outline: none;
+        transition: 0.2s;
+    }
+
+    textarea:focus {
+        background: rgba(255,255,255,0.1);
+        box-shadow: 0 0 10px #6a7cff;
     }
 
     button {
@@ -47,10 +65,13 @@
         color: #fff;
         cursor: pointer;
         font-weight: bold;
+        transition: 0.3s;
+        box-shadow: 0 0 6px rgba(106,124,255,0.6);
     }
 
     button:hover {
         background: #5a66e0;
+        box-shadow: 0 0 12px rgba(106,124,255,0.9);
     }
 
     ul {
@@ -59,6 +80,7 @@
         padding-left: 0;
         max-height: 300px;
         overflow-y: auto;
+        border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     li {
@@ -66,7 +88,19 @@
         margin-bottom: 4px;
         border-radius: 6px;
         background: rgba(255,255,255,0.05);
+        font-weight: 500;
+        transition: 0.2s;
     }
+
+    li:hover {
+        background: rgba(106,124,255,0.1);
+        box-shadow: 0 0 8px rgba(106,124,255,0.5);
+    }
+
+    li[data-status="Available"] { color: #00ff99; }
+    li[data-status="Taken"] { color: #ff4d4d; }
+    li[data-status="Reserved"] { color: #ffa500; }
+    li[data-status="ReservedByHytale"] { color: #ff66ff; }
 </style>
 </head>
 <body>
@@ -99,3 +133,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
